@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>测试页面 · GitHub Pages</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #eef1f6 100%);
+    color: #1d2129;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    padding: 48px 40px;
+    max-width: 560px;
+    width: 100%;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    background: #e8f3ff;
+    color: #1a73e8;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #111827;
+  }
+  p.desc {
+    font-size: 15px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 28px;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    text-align: left;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: #f9fafb;
+    border: 1px solid #eef0f3;
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .info-item .label {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-bottom: 4px;
+  }
+  .info-item .value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+  }
+  .status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #059669;
+    font-weight: 600;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #059669;
+    box-shadow: 0 0 0 4px rgba(5,150,105,0.15);
+  }
+  #time { color: #6b7280; font-weight: 400; }
+  footer {
+    margin-top: 32px;
+    font-size: 12px;
+    color: #b0b4bb;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <span class="badge">GitHub Pages · Live</span>
+    <h1>🎉 这是一个测试页面</h1>
+    <p class="desc">该页面通过 GitHub Pages 部署，任何人打开这个链接都可以直接访问，无需登录或安装任何东西。</p>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="label">部署方式</div>
+        <div class="value">GitHub Pages</div>
+      </div>
+      <div class="info-item">
+        <div class="label">页面状态</div>
+        <div class="value">✅ 正常运行</div>
+      </div>
+      <div class="info-item">
+        <div class="label">访问权限</div>
+        <div class="value">公开可访问</div>
+      </div>
+      <div class="info-item">
+        <div class="label">当前时间</div>
+        <div class="value" id="time">加载中...</div>
+      </div>
+    </div>
+
+    <div class="status">
+      <span class="dot"></span>
+      <span>页面已成功上线</span>
+    </div>
+
+    <footer>Deployed via GitHub Pages · Created by WorkBuddy</footer>
+  </div>
+
+  <script>
+    function updateTime() {
+      var now = new Date();
+      document.getElementById('time').textContent = now.toLocaleString('zh-CN');
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+  </script>
+</body>
+</html>
