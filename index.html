@@ -3,137 +3,464 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>测试页面 · GitHub Pages</title>
+<title>每日血压记录</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(135deg, #f5f7fa 0%, #eef1f6 100%);
+    background: #f5f6f8;
     color: #1d2129;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
+    padding: 20px 16px 60px;
+  }
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  header p {
+    font-size: 13px;
+    color: #8a8f99;
   }
   .card {
     background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    padding: 48px 40px;
-    max-width: 560px;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card h2 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    color: #1d2129;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .field label {
+    display: block;
+    font-size: 12px;
+    color: #8a8f99;
+    margin-bottom: 6px;
+  }
+  .field input {
     width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e6eb;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #1d2129;
+    background: #fafafa;
+  }
+  .field input:focus {
+    outline: none;
+    border-color: #1a73e8;
+    background: #fff;
+  }
+  .datetime-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .datetime-row .field { flex: 1; }
+  textarea.note {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e5e6eb;
+    border-radius: 10px;
+    font-size: 14px;
+    resize: none;
+    height: 44px;
+    font-family: inherit;
+    background: #fafafa;
+    margin-bottom: 14px;
+  }
+  textarea.note:focus { outline: none; border-color: #1a73e8; background: #fff; }
+  .submit-btn {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: #1a73e8;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .submit-btn:active { background: #145dc2; }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .summary-item {
+    background: #f9fafb;
+    border-radius: 10px;
+    padding: 12px 10px;
     text-align: center;
   }
-  .badge {
+  .summary-item .label { font-size: 11px; color: #9ca3af; margin-bottom: 4px; }
+  .summary-item .value { font-size: 20px; font-weight: 700; }
+  .summary-item .unit { font-size: 11px; color: #9ca3af; margin-left: 2px; }
+
+  .level-badge {
     display: inline-block;
-    background: #e8f3ff;
-    color: #1a73e8;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 6px 14px;
+    padding: 3px 10px;
     border-radius: 999px;
-    margin-bottom: 20px;
-  }
-  h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #111827;
-  }
-  p.desc {
-    font-size: 15px;
-    color: #6b7280;
-    line-height: 1.6;
-    margin-bottom: 28px;
-  }
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    text-align: left;
-    margin-bottom: 28px;
-  }
-  .info-item {
-    background: #f9fafb;
-    border: 1px solid #eef0f3;
-    border-radius: 10px;
-    padding: 14px 16px;
-  }
-  .info-item .label {
     font-size: 12px;
-    color: #9ca3af;
-    margin-bottom: 4px;
-  }
-  .info-item .value {
-    font-size: 14px;
     font-weight: 600;
-    color: #1f2937;
+    margin-top: 10px;
   }
-  .status {
+
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    height: 220px;
+  }
+
+  .history-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 8px;
-    font-size: 14px;
-    color: #059669;
-    font-weight: 600;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f2;
   }
-  .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #059669;
-    box-shadow: 0 0 0 4px rgba(5,150,105,0.15);
+  .history-item:last-child { border-bottom: none; }
+  .history-left { display: flex; align-items: center; gap: 12px; }
+  .history-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .history-info .time { font-size: 12px; color: #9ca3af; }
+  .history-info .bp { font-size: 15px; font-weight: 600; margin-top: 2px; }
+  .history-info .note-text { font-size: 12px; color: #9ca3af; margin-top: 2px; }
+  .history-right { display: flex; align-items: center; gap: 10px; }
+  .history-level { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+  .delete-btn {
+    background: none;
+    border: none;
+    color: #c4c6cc;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
   }
-  #time { color: #6b7280; font-weight: 400; }
-  footer {
-    margin-top: 32px;
-    font-size: 12px;
+  .delete-btn:active { color: #e24b4a; }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 0;
     color: #b0b4bb;
+    font-size: 13px;
   }
+
+  .legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: #8a8f99;
+  }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 </style>
 </head>
 <body>
+<div class="container">
+  <header>
+    <h1>每日血压记录</h1>
+    <p>记录收缩压、舒张压与心率，追踪长期趋势</p>
+  </header>
+
   <div class="card">
-    <span class="badge">GitHub Pages · Live</span>
-    <h1>🎉 这是一个测试页面</h1>
-    <p class="desc">该页面通过 GitHub Pages 部署，任何人打开这个链接都可以直接访问，无需登录或安装任何东西。</p>
-
-    <div class="info-grid">
-      <div class="info-item">
-        <div class="label">部署方式</div>
-        <div class="value">GitHub Pages</div>
+    <h2>新增一条记录</h2>
+    <div class="form-row">
+      <div class="field">
+        <label>收缩压 (mmHg)</label>
+        <input type="number" id="sbp" placeholder="120" inputmode="numeric">
       </div>
-      <div class="info-item">
-        <div class="label">页面状态</div>
-        <div class="value">✅ 正常运行</div>
+      <div class="field">
+        <label>舒张压 (mmHg)</label>
+        <input type="number" id="dbp" placeholder="80" inputmode="numeric">
       </div>
-      <div class="info-item">
-        <div class="label">访问权限</div>
-        <div class="value">公开可访问</div>
-      </div>
-      <div class="info-item">
-        <div class="label">当前时间</div>
-        <div class="value" id="time">加载中...</div>
+      <div class="field">
+        <label>心率 (次/分)</label>
+        <input type="number" id="hr" placeholder="72" inputmode="numeric">
       </div>
     </div>
-
-    <div class="status">
-      <span class="dot"></span>
-      <span>页面已成功上线</span>
+    <div class="datetime-row">
+      <div class="field">
+        <label>日期</label>
+        <input type="date" id="bpDate">
+      </div>
+      <div class="field">
+        <label>时间</label>
+        <input type="time" id="bpTime">
+      </div>
     </div>
-
-    <footer>Deployed via GitHub Pages · Created by WorkBuddy</footer>
+    <textarea class="note" id="note" placeholder="备注（可选，例如：晨起、服药后）"></textarea>
+    <button class="submit-btn" onclick="addRecord()">保存记录</button>
   </div>
 
-  <script>
-    function updateTime() {
-      var now = new Date();
-      document.getElementById('time').textContent = now.toLocaleString('zh-CN');
+  <div class="card">
+    <h2>最新一次</h2>
+    <div id="latestSummary">
+      <div class="empty-state">暂无记录，添加第一条测量数据吧</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>趋势曲线</h2>
+    <div class="chart-wrap">
+      <canvas id="trendChart" role="img" aria-label="血压趋势折线图，显示收缩压和舒张压随时间的变化">您的浏览器不支持图表显示。</canvas>
+    </div>
+    <div class="legend-row">
+      <span class="legend-item"><span class="legend-dot" style="background:#e24b4a;"></span>收缩压</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#378ADD;"></span>舒张压</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#639922;"></span>心率</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>历史记录</h2>
+    <div id="historyList">
+      <div class="empty-state">暂无历史记录</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const STORAGE_KEY = 'bp_tracker_records_v1';
+let chartInstance = null;
+
+function loadRecords() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveRecords(records) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+}
+
+function classifyBP(sbp, dbp) {
+  if (sbp < 90 || dbp < 60) {
+    return { label: '低血压', color: '#378ADD', bg: '#E6F1FB' };
+  }
+  if (sbp < 120 && dbp < 80) {
+    return { label: '正常', color: '#3b6d11', bg: '#EAF3DE' };
+  }
+  if (sbp < 130 && dbp < 80) {
+    return { label: '血压偏高', color: '#854F0B', bg: '#FAEEDA' };
+  }
+  if (sbp < 140 || dbp < 90) {
+    return { label: '高血压1级', color: '#993c1d', bg: '#FAECE7' };
+  }
+  if (sbp < 180 || dbp < 120) {
+    return { label: '高血压2级', color: '#A32D2D', bg: '#FCEBEB' };
+  }
+  return { label: '高血压危象', color: '#501313', bg: '#FCEBEB' };
+}
+
+function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+
+function setDefaultDateTime() {
+  const now = new Date();
+  document.getElementById('bpDate').value =
+    now.getFullYear() + '-' + pad2(now.getMonth() + 1) + '-' + pad2(now.getDate());
+  document.getElementById('bpTime').value =
+    pad2(now.getHours()) + ':' + pad2(now.getMinutes());
+}
+
+function addRecord() {
+  const sbp = parseInt(document.getElementById('sbp').value, 10);
+  const dbp = parseInt(document.getElementById('dbp').value, 10);
+  const hr = parseInt(document.getElementById('hr').value, 10) || null;
+  const date = document.getElementById('bpDate').value;
+  const time = document.getElementById('bpTime').value;
+  const note = document.getElementById('note').value.trim();
+
+  if (!sbp || !dbp || sbp < 40 || sbp > 300 || dbp < 20 || dbp > 200) {
+    alert('请输入有效的收缩压和舒张压数值');
+    return;
+  }
+  if (!date || !time) {
+    alert('请选择日期和时间');
+    return;
+  }
+
+  const records = loadRecords();
+  records.push({
+    id: Date.now(),
+    sbp, dbp, hr,
+    datetime: date + 'T' + time,
+    note
+  });
+  records.sort((a, b) => new Date(a.datetime) - new Date(b.datetime));
+  saveRecords(records);
+
+  document.getElementById('sbp').value = '';
+  document.getElementById('dbp').value = '';
+  document.getElementById('hr').value = '';
+  document.getElementById('note').value = '';
+  setDefaultDateTime();
+
+  render();
+}
+
+function deleteRecord(id) {
+  if (!confirm('确认删除这条记录吗？')) return;
+  let records = loadRecords();
+  records = records.filter(r => r.id !== id);
+  saveRecords(records);
+  render();
+}
+
+function formatDateTime(dtStr) {
+  const d = new Date(dtStr);
+  const months = d.getMonth() + 1;
+  const days = d.getDate();
+  const hh = pad2(d.getHours());
+  const mm = pad2(d.getMinutes());
+  return months + '月' + days + '日 ' + hh + ':' + mm;
+}
+
+function renderLatestSummary(records) {
+  const container = document.getElementById('latestSummary');
+  if (records.length === 0) {
+    container.innerHTML = '<div class="empty-state">暂无记录，添加第一条测量数据吧</div>';
+    return;
+  }
+  const latest = records[records.length - 1];
+  const level = classifyBP(latest.sbp, latest.dbp);
+  container.innerHTML =
+    '<div class="summary-grid">' +
+      '<div class="summary-item"><div class="label">收缩压</div><div class="value">' + latest.sbp + '<span class="unit">mmHg</span></div></div>' +
+      '<div class="summary-item"><div class="label">舒张压</div><div class="value">' + latest.dbp + '<span class="unit">mmHg</span></div></div>' +
+      '<div class="summary-item"><div class="label">心率</div><div class="value">' + (latest.hr || '--') + '<span class="unit">bpm</span></div></div>' +
+    '</div>' +
+    '<div style="text-align:center;">' +
+      '<span class="level-badge" style="color:' + level.color + ';background:' + level.bg + ';">' + level.label + '</span>' +
+      '<div style="font-size:12px;color:#9ca3af;margin-top:8px;">测量于 ' + formatDateTime(latest.datetime) + '</div>' +
+    '</div>';
+}
+
+function renderHistory(records) {
+  const container = document.getElementById('historyList');
+  if (records.length === 0) {
+    container.innerHTML = '<div class="empty-state">暂无历史记录</div>';
+    return;
+  }
+  const reversed = records.slice().reverse();
+  container.innerHTML = reversed.map(r => {
+    const level = classifyBP(r.sbp, r.dbp);
+    const noteHtml = r.note ? '<div class="note-text">' + escapeHtml(r.note) + '</div>' : '';
+    return (
+      '<div class="history-item">' +
+        '<div class="history-left">' +
+          '<span class="history-dot" style="background:' + level.color + ';"></span>' +
+          '<div class="history-info">' +
+            '<div class="time">' + formatDateTime(r.datetime) + '</div>' +
+            '<div class="bp">' + r.sbp + '/' + r.dbp + ' mmHg' + (r.hr ? '  ·  ' + r.hr + ' bpm' : '') + '</div>' +
+            noteHtml +
+          '</div>' +
+        '</div>' +
+        '<div class="history-right">' +
+          '<span class="history-level" style="color:' + level.color + ';background:' + level.bg + ';">' + level.label + '</span>' +
+          '<button class="delete-btn" onclick="deleteRecord(' + r.id + ')">&times;</button>' +
+        '</div>' +
+      '</div>'
+    );
+  }).join('');
+}
+
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function renderChart(records) {
+  const ctx = document.getElementById('trendChart');
+  const labels = records.map(r => {
+    const d = new Date(r.datetime);
+    return (d.getMonth() + 1) + '/' + d.getDate();
+  });
+  const sbpData = records.map(r => r.sbp);
+  const dbpData = records.map(r => r.dbp);
+  const hrData = records.map(r => r.hr);
+
+  if (chartInstance) {
+    chartInstance.destroy();
+  }
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: '收缩压',
+          data: sbpData,
+          borderColor: '#e24b4a',
+          backgroundColor: '#e24b4a',
+          tension: 0.3,
+          pointRadius: 3
+        },
+        {
+          label: '舒张压',
+          data: dbpData,
+          borderColor: '#378ADD',
+          backgroundColor: '#378ADD',
+          tension: 0.3,
+          pointRadius: 3
+        },
+        {
+          label: '心率',
+          data: hrData,
+          borderColor: '#639922',
+          backgroundColor: '#639922',
+          tension: 0.3,
+          pointRadius: 3,
+          borderDash: [4, 4]
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { ticks: { autoSkip: true, maxRotation: 45, font: { size: 11 } } },
+        y: { ticks: { font: { size: 11 } } }
+      }
     }
-    updateTime();
-    setInterval(updateTime, 1000);
-  </script>
+  });
+}
+
+function render() {
+  const records = loadRecords();
+  renderLatestSummary(records);
+  renderHistory(records);
+  renderChart(records);
+}
+
+setDefaultDateTime();
+render();
+</script>
 </body>
 </html>
