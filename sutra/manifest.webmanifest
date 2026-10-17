@@ -1,0 +1,16 @@
+{
+  "name": "每日诵经 · 木鱼",
+  "short_name": "每日诵经",
+  "description": "一只小猫陪你敲木鱼，念心经、金刚经、地藏经、阿弥陀经，每天打卡。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F6F2EA",
+  "theme_color": "#F6F2EA",
+  "lang": "zh-CN",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
