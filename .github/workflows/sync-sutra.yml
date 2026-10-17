@@ -3,14 +3,22 @@ name: sync-sutra
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: sutra
+  cancel-in-progress: true
 
 jobs:
   sync:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
     steps:
       - uses: actions/checkout@v4
       - name: download static site
@@ -23,11 +31,16 @@ jobs:
           curl -fsSL --retry 5 --retry-delay 3 "$B/sw.js" -o sutra/sw.js
           for i in 180 192 512; do curl -fsSL --retry 5 --retry-delay 3 "$B/icon-$i.png" -o "sutra/icon-$i.png"; done
           ls -la sutra
-          head -c 80 sutra/index.html
       - name: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A sutra
           git commit -m "sync sutra app" || echo "no changes"
-          git push
+          git push || true
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      - id: deployment
+        uses: actions/deploy-pages@v4
