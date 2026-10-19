@@ -24,7 +24,7 @@ jobs:
       - name: download static site
         run: |
           set -e
-          B="https://impressed-hugh-phys-enormous.trycloudflare.com"
+          B="https://cart-ham-economic-photograph.trycloudflare.com"
           mkdir -p sutra
           curl -fsSL --retry 5 --retry-delay 3 "$B/index.html" -o sutra/index.html
           curl -fsSL --retry 5 --retry-delay 3 "$B/manifest.webmanifest" -o sutra/manifest.webmanifest
