@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: sutra
@@ -17,8 +15,6 @@ concurrency:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
     steps:
       - uses: actions/checkout@v4
       - name: download static site
@@ -38,9 +34,3 @@ jobs:
           git add -A sutra
           git commit -m "sync sutra app" || echo "no changes"
           git push || true
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: '.'
-      - id: deployment
-        uses: actions/deploy-pages@v4
