@@ -39,7 +39,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         let env = ProcessInfo.processInfo.environment
         if env["GT_DEBUG"] != nil, let fake = env["GT_FAKESEED"], !fake.isEmpty {
             KeyStore.set(Injected.keyName, fake)
-            DebugLog.write("seeded fake key")
+            DebugLog.write("seeded fake key; readback=\(KeyStore.get(Injected.keyName) != nil)")
         }
 
         let cfg = WKWebViewConfiguration()
@@ -198,6 +198,8 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
             DebugLog.write("keyDel")
         case "restored":
             DebugLog.write("restored from keychain")
+        case "diag":
+            if DebugLog.on, let d = body["d"] { DebugLog.write("diag \(d)") }
         case "beat":
             lastBeat = Date()
             lastIdle = (body["idle"] as? Bool) ?? false

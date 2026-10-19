@@ -22,6 +22,10 @@ enum Injected {
 
             /* ① 工作台页面所在 frame：记住访问码的密钥 ←→ 钥匙串 */
             if (!isTop && new RegExp("__HOSTRE__").test(location.hostname)) {
+              var diag = { host: location.hostname, seed: SEED ? String(SEED).length : -1, ls: 'unknown', had: null };
+              try { diag.had = !!localStorage.getItem(KEY); localStorage.setItem('gt-probe', '1'); localStorage.removeItem('gt-probe'); diag.ls = 'ok'; }
+              catch(e){ diag.ls = 'ERR ' + (e && e.name); }
+              post({t:'diag', d: diag});
               try { if (SEED && !localStorage.getItem(KEY)) { localStorage.setItem(KEY, SEED); post({t:'restored'}); } } catch(e){}
               var rawSet = Storage.prototype.setItem, rawRem = Storage.prototype.removeItem;
               Storage.prototype.setItem = function(k, v){
@@ -52,6 +56,12 @@ enum Injected {
 
             /* ② 平台外壳（最外层）：隐藏「回 WorkBuddy 继续聊」等平台浮层，它们点了会跳出应用 */
             if (isTop) {
+              /* 平台外壳的浮层有固定类名：「复制链接」圆钮、「回 WorkBuddy 继续聊」条。直接用样式隐藏，下面的文字扫描只做兜底 */
+              try {
+                var css = '.copy-link-fab,.chat-with-workbuddy-entry{display:none!important}';
+                var addCss = function(){ try { var st = document.createElement('style'); st.textContent = css; (document.head || document.documentElement).appendChild(st); } catch(e){} };
+                if (document.documentElement) addCss(); else document.addEventListener('DOMContentLoaded', addCss);
+              } catch(e){}
               var RE = /^(回 ?WorkBuddy 继续聊|前往 ?WorkBuddy|一键做同款|Continue in WorkBuddy|Go to WorkBuddy|Make the same)$/;
               var queued = false;
               function sweep(){
@@ -65,7 +75,11 @@ enum Injected {
                     if (t.length > 24 || !RE.test(t)) continue;
                     var n = el;
                     while (n && n !== document.body) {
-                      if (getComputedStyle(n).position === 'fixed') { n.style.setProperty('display', 'none', 'important'); break; }
+                      var pos = getComputedStyle(n).position;
+                      if (pos === 'fixed' || pos === 'absolute') {
+                        if (!n.querySelector('iframe')) n.style.setProperty('display', 'none', 'important');
+                        break;
+                      }
                       n = n.parentElement;
                     }
                   }
