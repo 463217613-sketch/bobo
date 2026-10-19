@@ -36,6 +36,9 @@ jobs:
         run: |
           set -x
           mkdir -p ios-ci
+          ls -d /Applications/Xcode*.app | tee ios-ci/xcodes.txt
+          XC=$(ls -d /Applications/Xcode_16*.app 2>/dev/null | sort -V | tail -n 1)
+          [ -n "$XC" ] && sudo xcode-select -s "$XC/Contents/Developer"
           brew install xcodegen 2>&1 | tail -n 3
           cd ios
           curl -fsSL "$ICON_URL" -o /tmp/icon.jpg
@@ -78,7 +81,7 @@ jobs:
       - name: Simulator smoke test (launch, screenshot, bridge log)
         run: |
           set +e
-          UDID=$(xcrun simctl list devices available | grep -E "iPhone 15 \(" | head -1 | grep -oE '[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}')
+          UDID=$(xcrun simctl list devices available | grep -E "^ +iPhone [0-9]+ \(" | head -1 | grep -oE '[0-9A-Fa-f]{8}-([0-9A-Fa-f]{4}-){3}[0-9A-Fa-f]{12}')
           echo "UDID=$UDID" | tee ios-ci/sim-udid.txt
           xcrun simctl boot "$UDID"
           xcrun simctl bootstatus "$UDID" -b | tail -n 2
