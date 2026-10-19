@@ -1,5 +1,5 @@
 /* 离线可用：第一次打开后缓存；有网时优先取新版，断网时用缓存 */
-const V = "sutra-v3";
+const V = "sutra-v4";
 const FILES = ["./", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-192.png", "./icon-512.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(V).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => {
