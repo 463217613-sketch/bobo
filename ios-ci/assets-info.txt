@@ -1,0 +1,5 @@
+    "Name" : "LaunchBG",
+    "Name" : "AppIcon",
+    "Name" : "AppIcon",
+    "Name" : "AppIcon",
+    "Name" : "AppIcon",

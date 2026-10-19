@@ -1,0 +1,71 @@
+Dict {
+    UIRequiredDeviceCapabilities = Array {
+        arm64
+    }
+    UIRequiresFullScreen = false
+    CFBundleInfoDictionaryVersion = 6.0
+    GTLatestURL = https://raw.githubusercontent.com/463217613-sketch/bobo/main/ios/latest.json
+    DTPlatformVersion = 18.2
+    UISupportedInterfaceOrientations~ipad = Array {
+        UIInterfaceOrientationPortrait
+        UIInterfaceOrientationPortraitUpsideDown
+        UIInterfaceOrientationLandscapeLeft
+        UIInterfaceOrientationLandscapeRight
+    }
+    CFBundleName = BOBO工作台
+    DTSDKName = iphoneos18.2
+    UIViewControllerBasedStatusBarAppearance = true
+    CFBundleIcons = Dict {
+        CFBundlePrimaryIcon = Dict {
+            CFBundleIconFiles = Array {
+                AppIcon60x60
+            }
+            CFBundleIconName = AppIcon
+        }
+    }
+    UILaunchScreen = Dict {
+        UIColorName = LaunchBG
+    }
+    UIStatusBarStyle = UIStatusBarStyleDarkContent
+    CFBundleDisplayName = BOBO工作台
+    LSRequiresIPhoneOS = true
+    DTSDKBuild = 22C146
+    CFBundleShortVersionString = 1.0
+    CFBundleSupportedPlatforms = Array {
+        iPhoneOS
+    }
+    UISupportedInterfaceOrientations = Array {
+        UIInterfaceOrientationPortrait
+        UIInterfaceOrientationLandscapeLeft
+        UIInterfaceOrientationLandscapeRight
+    }
+    GTNativeBuild = 2
+    BuildMachineOSBuild = 23J631
+    DTPlatformBuild = 22C146
+    CFBundlePackageType = APPL
+    DTXcodeBuild = 16C5032a
+    CFBundleDevelopmentRegion = en
+    GTPageURL = https://workbuddy.link/p/1y4nUULacJpvnay9e6DqPI
+    CFBundleVersion = 2
+    MinimumOSVersion = 15.0
+    UIDeviceFamily = Array {
+        1
+        2
+    }
+    CFBundleIdentifier = com.bobo.workbench
+    DTXcode = 1620
+    UIApplicationSupportsIndirectInputEvents = true
+    CFBundleExecutable = BOBOWorkbench
+    CFBundleIcons~ipad = Dict {
+        CFBundlePrimaryIcon = Dict {
+            CFBundleIconFiles = Array {
+                AppIcon60x60
+                AppIcon76x76
+            }
+            CFBundleIconName = AppIcon
+        }
+    }
+    DTPlatformName = iphoneos
+    ITSAppUsesNonExemptEncryption = false
+    DTCompiler = com.apple.compilers.llvm.clang.1_0
+}

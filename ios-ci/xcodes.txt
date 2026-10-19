@@ -1,0 +1,15 @@
+/Applications/Xcode.app
+/Applications/Xcode_15.0.1.app
+/Applications/Xcode_15.0.app
+/Applications/Xcode_15.1.0.app
+/Applications/Xcode_15.1.app
+/Applications/Xcode_15.2.0.app
+/Applications/Xcode_15.2.app
+/Applications/Xcode_15.3.0.app
+/Applications/Xcode_15.3.app
+/Applications/Xcode_15.4.0.app
+/Applications/Xcode_15.4.app
+/Applications/Xcode_16.1.0.app
+/Applications/Xcode_16.1.app
+/Applications/Xcode_16.2.0.app
+/Applications/Xcode_16.2.app

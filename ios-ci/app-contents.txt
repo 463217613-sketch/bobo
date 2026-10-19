@@ -1,0 +1,6 @@
+AppIcon60x60@2x.png
+AppIcon76x76@2x~ipad.png
+Assets.car
+BOBOWorkbench
+Info.plist
+PkgInfo
