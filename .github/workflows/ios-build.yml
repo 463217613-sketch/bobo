@@ -87,7 +87,7 @@ jobs:
           xcrun simctl bootstatus "$UDID" -b | tail -n 2
           APP=build-sim/Build/Products/Debug-iphonesimulator/BOBOWorkbench.app
           xcrun simctl install "$UDID" "$APP"
-          SIMCTL_CHILD_GT_DEBUG=1 SIMCTL_CHILD_GT_FAKESEED='{"salt":"unit-test-salt","k":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="}' \
+          SIMCTL_CHILD_GT_DEBUG=1 SIMCTL_CHILD_GT_FORCE_OLD=1 SIMCTL_CHILD_GT_FAKESEED='{"salt":"unit-test-salt","k":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="}' \
             xcrun simctl launch "$UDID" "$BUNDLE_ID" | tee ios-ci/sim-launch.txt
           sleep 25
           xcrun simctl io "$UDID" screenshot ios-ci/sim-25s.png

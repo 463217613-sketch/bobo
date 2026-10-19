@@ -14,6 +14,7 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
     private var checkTimer: Timer?
     private var toastLabel: UILabel?
     private var bannerShown = false
+    private var forcedOnce = false
 
     private let bg = UIColor(red: 246/255, green: 245/255, blue: 242/255, alpha: 1)
     private let spinner = UIActivityIndicatorView(style: .large)
@@ -248,7 +249,17 @@ final class WebViewController: UIViewController, WKNavigationDelegate, WKUIDeleg
         spinner.stopAnimating()
         DebugLog.write("didFinish \(webView.url?.absoluteString ?? "-")")
         if let u = webView.url, (u.host ?? "").hasSuffix("workbuddy.link") {
-            fetchPublishVersion { [weak self] v in if let v = v { self?.loadedVersion = v; DebugLog.write("version \(v)") } }
+            fetchPublishVersion { [weak self] v in
+                guard let self = self, let v = v else { return }
+                self.loadedVersion = v
+                DebugLog.write("version \(v)")
+                // 云端自测专用：假装自己是旧版本，验证「发现新版本 → 页面空闲 → 自动刷新」整条链路
+                if DebugLog.on, ProcessInfo.processInfo.environment["GT_FORCE_OLD"] != nil, !self.forcedOnce {
+                    self.forcedOnce = true
+                    self.loadedVersion = 1
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 8) { self.checkForUpdate() }
+                }
+            }
         }
     }
 
