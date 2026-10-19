@@ -39,14 +39,14 @@ Dict {
         UIInterfaceOrientationLandscapeLeft
         UIInterfaceOrientationLandscapeRight
     }
-    GTNativeBuild = 4
+    GTNativeBuild = 5
     BuildMachineOSBuild = 23J631
     DTPlatformBuild = 22C146
     CFBundlePackageType = APPL
     DTXcodeBuild = 16C5032a
     CFBundleDevelopmentRegion = en
     GTPageURL = https://workbuddy.link/p/1y4nUULacJpvnay9e6DqPI
-    CFBundleVersion = 4
+    CFBundleVersion = 5
     MinimumOSVersion = 15.0
     UIDeviceFamily = Array {
         1
