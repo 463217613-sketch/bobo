@@ -1,0 +1,16 @@
+Command line invocation:
+    /Applications/Xcode_15.4.app/Contents/Developer/usr/bin/xcodebuild -project BOBOWorkbench.xcodeproj -scheme BOBOWorkbench -sdk iphonesimulator -configuration Debug -derivedDataPath ../build-sim CODE_SIGNING_ALLOWED=NO build
+
+User defaults from command line:
+    IDEDerivedDataPathOverride = /Users/runner/work/bobo/bobo/build-sim
+    IDEPackageSupportUseBuiltinSCM = YES
+
+Build settings from command line:
+    CODE_SIGNING_ALLOWED = NO
+    SDKROOT = iphonesimulator17.5
+
+2026-10-19 18:59:03.083 xcodebuild[1406:6708] Writing error result bundle to /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/ResultBundle_2026-19-10_18-59-0003.xcresult
+xcodebuild: error: Unable to read project 'BOBOWorkbench.xcodeproj'.
+	Reason: The project ‘BOBOWorkbench’ cannot be opened because it is in a future Xcode project file format (77). Adjust the project format using a compatible version of Xcode to allow it to be opened by this version of Xcode.
+
+
