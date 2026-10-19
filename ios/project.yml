@@ -1,0 +1,63 @@
+name: BOBOWorkbench
+options:
+  bundleIdPrefix: com.bobo
+  deploymentTarget:
+    iOS: "15.0"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+targets:
+  BOBOWorkbench:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources
+      - path: Resources
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.bobo.workbench
+        PRODUCT_NAME: BOBOWorkbench
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_BITCODE: NO
+    info:
+      path: Resources/Info.plist
+      properties:
+        CFBundleDisplayName: BOBO工作台
+        CFBundleName: BOBO工作台
+        CFBundleShortVersionString: "$(MARKETING_VERSION)"
+        CFBundleVersion: "$(CURRENT_PROJECT_VERSION)"
+        LSRequiresIPhoneOS: true
+        ITSAppUsesNonExemptEncryption: false
+        UIApplicationSupportsIndirectInputEvents: true
+        UIRequiresFullScreen: false
+        UILaunchScreen:
+          UIColorName: LaunchBG
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UIStatusBarStyle: UIStatusBarStyleDarkContent
+        UIViewControllerBasedStatusBarAppearance: true
+        GTPageURL: https://workbuddy.link/p/1y4nUULacJpvnay9e6DqPI
+        GTNativeBuild: "$(CURRENT_PROJECT_VERSION)"
+        GTLatestURL: https://raw.githubusercontent.com/463217613-sketch/bobo/main/ios/latest.json
+schemes:
+  BOBOWorkbench:
+    build:
+      targets:
+        BOBOWorkbench: all
+    run:
+      config: Debug
+    archive:
+      config: Release
