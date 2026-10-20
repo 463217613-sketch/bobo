@@ -1,34 +1,35 @@
-1792439213.682946	keychain set failed status=-34018, using fallback
-1792439213.692642	seeded fake key; readback=true
-1792439218.3522592	didFinish https://www.workbuddy.link/p/1y4nUULacJpvnay9e6DqPI
-1792439219.766656	version 13
-1792439220.292976	diag {
+1792469699.7443929	keychain set failed status=-34018, using fallback
+1792469699.755919	seeded fake key; readback=true
+1792469704.9790149	didFinish https://www.workbuddy.link/p/1y4nUULacJpvnay9e6DqPI?hideWorkBuddyButton=1
+1792469706.68174	version 14
+1792469707.5030541	diag {
     had = 0;
     host = "workbuddy-space-static.codebuddy.work";
     ls = ok;
     seed = 76;
 }
-1792439220.293388	restored from keychain
-1792439223.294014	beat loaded idle=true
-1792439226.2965012	beat loaded idle=true
-1792439228.816258	new version 1 -> 13
-1792439229.29907	beat loaded idle=true
-1792439229.472454	didFinish https://www.workbuddy.link/p/1y4nUULacJpvnay9e6DqPI
-1792439229.826038	diag {
+1792469707.503429	restored from keychain
+1792469710.509955	beat loaded idle=true
+1792469713.5123281	beat loaded idle=true
+1792469715.773275	new version 1 -> 14
+1792469716.508559	beat loaded idle=true
+1792469717.008846	didFinish https://www.workbuddy.link/p/1y4nUULacJpvnay9e6DqPI?hideWorkBuddyButton=1
+1792469717.315876	diag {
     had = 1;
     host = "workbuddy-space-static.codebuddy.work";
     ls = ok;
     seed = 76;
 }
-1792439230.0734081	version 13
-1792439232.828288	beat loaded idle=true
-1792439235.831975	beat loaded idle=true
-1792439238.833631	beat loaded idle=true
-1792439241.837693	beat loaded idle=true
-1792439244.840466	beat loaded idle=true
-1792439247.8413649	beat loaded idle=true
-1792439250.863334	beat loaded idle=true
-1792439253.896174	beat loaded idle=true
-1792439256.92762	beat loaded idle=true
-1792439259.9581199	beat loaded idle=true
-1792439262.990659	beat loaded idle=true
+1792469717.705284	version 14
+1792469720.313212	beat loaded idle=true
+1792469723.314939	beat loaded idle=true
+1792469726.317875	beat loaded idle=true
+1792469729.32343	beat loaded idle=true
+1792469732.3258982	beat loaded idle=true
+1792469735.329379	beat loaded idle=true
+1792469738.3367882	beat loaded idle=true
+1792469741.375164	beat loaded idle=true
+1792469744.401595	beat loaded idle=true
+1792469747.433432	beat loaded idle=true
+1792469750.462503	beat loaded idle=true
+1792469753.497713	beat loaded idle=true
