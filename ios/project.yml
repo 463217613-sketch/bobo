@@ -49,7 +49,7 @@ targets:
           - UIInterfaceOrientationLandscapeRight
         UIStatusBarStyle: UIStatusBarStyleDarkContent
         UIViewControllerBasedStatusBarAppearance: true
-        GTPageURL: https://workbuddy.link/p/1y4nUULacJpvnay9e6DqPI
+        GTPageURL: "https://workbuddy.link/p/1y4nUULacJpvnay9e6DqPI?hideWorkBuddyButton=1"
         GTNativeBuild: "$(CURRENT_PROJECT_VERSION)"
         GTLatestURL: https://raw.githubusercontent.com/463217613-sketch/bobo/main/ios/latest.json
 schemes:
